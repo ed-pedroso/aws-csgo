@@ -10,6 +10,12 @@ env:
       PRIVATE_KEY: '/csgo/ssh-key'
 
 phases:
+   pre_build:
+      commands:
+        - echo "Installing Packer"
+        - curl -o packer.zip https://releases.hashicorp.com/packer/1.3.3/packer_1.3.3_linux_amd64.zip && unzip packer.zip
+        - echo "Validating Packer template"
+        - ./packer validate packer_cis.json
    build:
       commands:
          # The following filters may be used to retrieve the latest Arch Linux EBS-based AMI:
